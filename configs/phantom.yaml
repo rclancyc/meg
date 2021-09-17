@@ -1,0 +1,28 @@
+model: 
+  model_type: conducting_sphere
+  radius: 0.0816   # not sure if this is correct, with the conducting sphere, we need to choose a radius (does it enter into equation?) 
+
+mesh: 
+  mesh_type: ROI
+  xroi: [-0.015,0.015]
+  yroi: [0.05,0.08]
+  zroi: [-0.015, 0.015]                   
+  num_x: 11
+  num_y: 11 
+  num_z: 11
+
+data:
+  rms_noise: 1.58114e-12                # setting low noise 0.5pT/sqrt(Hz) * sqrt(10 Hz) 
+  moment_magnitude: 10.0e-9                # we want field strenth of 5nT at 5 meters. We get this with 30 Am^2. 
+  moment_orientation: tangential            # set to tangential (typical for sphere) or random (free space)
+
+sensors:
+  array_type: external
+  array_file: ../../sensors/phantom_sensors.csv      # this gives path to file with sensor info. Needs columns for 'sensor_number', x, y, z, x_orientation, etc. If no orientation then it uses bias field value.
+  use_sensors: [101, 109, 117, 201, 209, 217, 301, 308, 317] 
+  bias_field: radial  # [0,2.5e-5,-4.33013e-5]    # field points due north 60 degrees into the earth
+  bias_field_magnitude: 1.0e-5
+  gradiometers: True
+  gradiometer_offset: 0.03
+  gradiometer_type: radial
+

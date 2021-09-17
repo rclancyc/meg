@@ -1,0 +1,46 @@
+---
+model: 
+  model_type: conducting_sphere
+  radius: 0.091
+  center: [0, 0, 0]
+  dipole_location_scaling: 1.0e+3       # this tells us how to scale dipole location step, maybe set up a different setting for optimization routine
+   
+
+mesh: 
+  mesh_type: cartesian_inner_sphere 
+  xroi: [-0.02, 0.02]                   # the region of interst corresponds to the one used in phantom data. 
+  yroi: [0.04, 0.09]
+  zroi: [-0.02, 0.02]
+  level: 3
+  min_radius_factor: 0.25               # allows us to only search from radius*min_radius_factor to sphere surface
+
+data:
+  rms_noise: 700.0e-15                  # set the noise level to stdandard deviation of 700 fT
+  depth_range: [0.78, 0.78000001]       # percent of radius from which dipole can be drawn  
+  moment_magnitude: 100.0e-9             # 10e-9 is magnitude of dipole moment given in Hamalainen. We scale by 10 here since localization is poor for the given noise level.
+  moment_orientation: tangential        # set to tangential (typical for sphere) or random (free space)
+
+sensors:
+  array_type: fibonacci       
+  sensor_type: vector                   # or scalar
+  num_sensors: 32
+  bias_field: [0,0,1.0e-5]
+  num_thetas: 8
+  num_phis: 4
+  total_num_sensors: 512
+  num_sensors_included: 16
+  gradiometers: False
+  phi_center: [0, 0, 0.091]             # center of patch array for sensor_patch array type and density_array
+  phi_range: 0.174                      # largest azimuthal location for sensors 0.174 is about 10 deg, only for patch array  
+  density: False                        # flag to use create_sensor_density_array
+
+
+# NECESSARY FIELD FOR DIFFERENT SENSORS  
+# array_tpye='fibonacci': 'num_sensors', 'bias_field'
+# array_type='visualization': 'level', 'bias_field', 'mesh_center', 'radius', 'model_type' 
+# array_type='uniform': 'num_sensors', 'bias_field'
+# array_type='spherical': num_thetas, num_phis, bias_field (default to nothing i.e. bias_field: )
+# array_type='sensor_patch': phi_center, phi_range, num_phis, num_thetas, bias_field
+# array_type='phantom': For now, just allow for hard coded file path and sensors used. Must address further since sensor data is loaded from csvs.
+# if density==True need the following: n_sensors_included, total_n_sensors, phi_center, bias_field=None, array_type 
+

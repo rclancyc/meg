@@ -1,0 +1,25 @@
+model: 
+  model_type: free_space_magnetic
+  radius: 777
+
+mesh: 
+  mesh_type: sphere_ROI
+  mesh_center: [0,0,0]
+  spacing: 1
+  inner_radius: 5
+  outer_radius: 30
+
+data:
+  rms_noise: 0.5e-12                # setting low noise 0.5pT/sqrt(Hz) * sqrt(10 Hz), for 10sec use 0.158pT
+  moment_magnitude: 30               # we want field strenth of 5nT at 5 meters. We get this with 30 Am^2. 
+  moment_orientation: random            # set to tangential (typical for sphere) or random (free space)
+  inner_radius: 0
+  outer_radius: 30
+
+sensors:
+  array_type: 
+  num_sensors: 8
+  bias_field: [0,2.5e-5,-4.33013e-5]    # field points due north 60 degrees into the earth
+  gradiometers: False
+
+
