@@ -1,0 +1,25 @@
+---
+model: 
+  model_type: conducting_sphere
+  radius: 0.091
+  center: [0, 0, 0]
+   
+mesh: 
+  mesh_type: 'spherical_inner_sphere' 
+  num_radial: 1
+  num_polar: 20
+  num_azimuthal: 20
+  min_radius_ratio: 0.7  
+  max_azi_angle: 1.5708
+data:
+  rms_noise: 700.0e-15                  # set the noise level to stdandard deviation of 700 fT
+  depth_range: [0.615, 0.78]            # set depth range for 
+  moment_magnitude: 100.0e-9             # 10e-9 is magnitude of dipole moment given in Hamalainen. We scale by 10 here since localization is poor for the given noise level.
+  moment_orientation: tangential        # set to tangential (typical for sphere) or random (free space)
+
+sensors:
+  array_type: fibonacci       
+  num_sensors: 10
+  bias_field: [1.e-5, 0, 0]
+  gradiometers: False
+
